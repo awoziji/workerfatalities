@@ -23,14 +23,14 @@ body {
   /* nowrap for title below causes the 30px padding on the right*/
   /*padding: 10px 30px 0 10px;*/
   padding: 10px 30px 10px 10px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(40, 40, 40, 0.7);
   /*max-width: 425px;*/
   font-size: 0.85em;
-  border: 1px solid rgba(200, 200, 200, 0.7);
+  border: 1px solid rgba(80, 80, 80, 0.7);
   border-top: none;
   border-left: none;
   border-radius:0 0 4px 0;
-
+  color: rgb( 220,220,220);
   /*width: 60vw;*/
   /*pointer-events: none;*/
 }
@@ -41,10 +41,13 @@ body {
 }
 
 #info strong{
-  /*font-size: 1.5em;*/
+  font-size: 1.5em;
+  font-weight: normal;
   letter-spacing: 0.5px;
-  font-size: 1.3em;
-  font-family: 'PT Sans Narrow', sans-serif;
+  /*font-size: 1.4em;*/
+  font-family: 'Zilla Slab', serif;
+
+  /*font-family: 'PT Sans Narrow', sans-serif;*/
 }
 p.right {
   text-align: right;
@@ -54,13 +57,14 @@ p.small {
   font-family: monospace;
 }
 a {
-  color: rgb(45,40,200);
+  /*color: rgb(45,40,200);*/
+  color: rgb( 220,220,220);
   text-decoration: none;
   font-weight: bold
 }
-a:visited { color: rgb(45,40,200); }
+a:visited { color: rgb(220,220,220); }
 
-a:hover {  color: rgb(45,40,200); }
+a:hover {  color: rgb(240,240,240); }
 
 a.moreinfo {
   margin-left: 15px;
@@ -72,6 +76,11 @@ a.moreinfo {
 #info p {
   margin-left: 20px;
   max-width: 300px;
+}
+
+
+.mapboxgl-popup {
+    max-width: 350px;
 }
 
 /*

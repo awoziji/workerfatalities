@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  nbserver:
+    build: .
+    env_file:
+      - .env
+    # command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./data:/home/jovyan/work
+    ports:
+      - "8888:8888"

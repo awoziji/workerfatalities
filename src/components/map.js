@@ -6,11 +6,22 @@ import {getDistance} from '../utils.js'
 // XXX This must be present in the page or it won't work, right now it's the icon in the menu
 // probably better if it's hidden in index.html ?
 let skull_url = require("file-loader?name=skull_d2.png!../../img/skull_d2.png")
-console.log(skull_url)
+// console.log(skull_url)
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiemlzY2h3YXJ0eiIsImEiOiJjaXhxOXp5eGIwOHJqMzNubnI2Zjh2a2RjIn0.CMKNggl2Se8uH0GEKEJcJw'
 window.mapboxgl = mapboxgl
 
+
+// helper for loading data
+function load_data(map) {
+  return new Promise(function(resolve, reject){
+        require.ensure([], function() {
+          let records = require('dsv-loader!../../data/osha.csv')
+          let geojson = get_geo_from_records(records)
+          resolve([geojson, map])
+      }) // end ensure
+  }) // end promise, which is returned
+} // end load data
 
 // the actual react component we export, Map
 //
@@ -60,11 +71,12 @@ class Map extends React.Component {
           // Populate the popup and set its coordinates
           // based on the feature found.
           let p = e.features[0].properties
+          // console.log(p)
           // new Date(p.date).toDateString()
           // not actually utc, but otherwise the date is off by one, blah
           // "America/New_York"
           let date_opts = { timeZone:"UTC", weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-          let html = [new Date(p.date).toLocaleDateString("en-US", date_opts), p.description, p.employer].join('<br/>')
+          let html = [new Date(p.date).toLocaleDateString("en-US", date_opts), p.description, p.place].join('<br/>')
           popup.setLngLat(e.features[0].geometry.coordinates)
               .setHTML(html)
               .addTo(map);
@@ -110,26 +122,6 @@ export default Map;
 // Helpers !
 // -------------------
 
-
-function load_data(map) {
-  return new Promise(function(resolve, reject){
-        require.ensure([], function() {
-          let records = require('dsv-loader!../../data/osha_current.csv')
-          let geojson = get_geo_from_records(records)
-          resolve([geojson, map])
-      }) // end ensure
-  }) // end promise, which is returned
-} // end load data
-
-// function load_all_years_data(map) {
-//   return new Promise(function(resolve, reject){
-//         require.ensure([], function() {
-//           let records = require('dsv-loader!../../data/all_deaths.csv')
-//           let geojson = get_geo_from_records(records)
-//           resolve([geojson, map])
-//       }) // end ensure
-//   }) // end promise, which is returned
-// } // end load data
 
 // helper for above
 function get_geo_from_records(records){
@@ -206,10 +198,10 @@ function make_map(container){
           // style: 'mapbox://styles/mapbox/light-v9',
           zoom: 3,
           minZoom: 2,
-          maxZoom: 16,
+          maxZoom: 18,
           attributionControl: false, // only shows up on small screens and isn't clickable anyway?!
           // maxZoom: 15,
-          // hash: true,
+          hash: true,
           // center:[-73.9,-90],
           center:[-99, 40],
           // maxBounds: bounds, // Sets bounds as max
@@ -239,14 +231,18 @@ function point_layer_obj(){
     type: 'symbol',
     source: 'data',
     // "paint":{"icon-opacity": 1,},
-    "paint":{"icon-opacity": .65,},
+    "paint":{
+      "icon-opacity": {stops: [ [1, 0.3], [3, 0.4], [5, 0.5], [8, 0.6], [9, 1], [10, 1] ]},
+      // "icon-opacity": .65,
+    },
     "layout": {
       "icon-image": "skull_d2_image",
       "icon-allow-overlap": true,
-      "icon-size": 1,
-      // "icon-size": {
-      //   stops:[ [4, 0.5], [5, 0.5], [6, 0.5], [7, 0.5] ],
-      // }
+      // "icon-size": 1,
+
+      "icon-size": {
+        stops:[ [3, 0.3], [4, 0.5], [5, 0.6], [6, 0.7], [7, 0.8], [8, 0.9],[9, 1] ],
+      }
     },
   }
 }
