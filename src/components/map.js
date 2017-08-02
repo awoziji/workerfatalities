@@ -1,7 +1,7 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from 'mapbox-gl-geocoder'
-import LegendControl from './legend.js'
+// import LegendControl from './legend.js'
 import {getDistance} from '../utils.js'
 // let skull_url = require("../../img/skull_d2.png")
 // XXX This must be present in the page or it won't work, right now it's the icon in the menu
@@ -170,6 +170,8 @@ function get_geo_from_records(records){
 function adjust_location(record, count){
   let offset = 0.001
   let mod = count%4
+  // basically lvl is how far, in an integer from the center is the icon
+  // confusing because a) first one doesn't count b) +1 before this c) 0 indexed
   let lvl = Math.floor((count-2)/4)+1
   switch (mod){
     case 0:

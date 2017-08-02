@@ -1,7 +1,7 @@
 {
-  "name": "deathmapnyc",
-  "version": "0.1.0",
-  "description": "a map of death in nyc",
+  "name": "workerfatalities",
+  "version": "0.1.1",
+  "description": "a map of worker fatalities in the us",
   "main": "webpack.config.js",
   "scripts": {
     "jupyter": "docker run -it  -v $PWD/data:/home/jovyan/work --rm -p 8888:8888 jupyter/datascience-notebook",
@@ -14,19 +14,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zischwartz/deathmapnyc.git"
+    "url": "git+https://github.com/zischwartz/workerfatalities.git"
   },
   "keywords": [
     "map",
     "death",
-    "nyc"
+    "fatalities",
+    "catastrophes",
+    "osha"
   ],
   "author": "Zach Schwartz",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zischwartz/deathmapnyc/issues"
+    "url": "https://github.com/zischwartz/workerfatalities/issues"
   },
-  "homepage": "https://github.com/zischwartz/deathmapnyc#readme",
+  "homepage": "https://github.com/zischwartz/workerfatalities#readme",
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
