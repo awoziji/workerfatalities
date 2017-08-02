@@ -1,5 +1,6 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl'
+import MapboxGeocoder from 'mapbox-gl-geocoder'
 import LegendControl from './legend.js'
 import {getDistance} from '../utils.js'
 // let skull_url = require("../../img/skull_d2.png")
@@ -76,7 +77,8 @@ class Map extends React.Component {
           // not actually utc, but otherwise the date is off by one, blah
           // "America/New_York"
           let date_opts = { timeZone:"UTC", weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-          let html = [new Date(p.date).toLocaleDateString("en-US", date_opts), p.description, p.place].join('<br/>')
+          let html = ['<em>'+new Date(p.date).toLocaleDateString("en-US", date_opts)+'</em>', p.description, p.place].join('<br/>')
+          html = html.replace(/�/g, '')
           popup.setLngLat(e.features[0].geometry.coordinates)
               .setHTML(html)
               .addTo(map);
@@ -88,6 +90,12 @@ class Map extends React.Component {
 
       map.addControl(new mapboxgl.NavigationControl());
       map.addControl(new mapboxgl.GeolocateControl({  positionOptions: {   enableHighAccuracy: true }}))
+      map.addControl(new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken,
+          zoom: 14,
+          placeholder: 'Search for a place'
+      }), 'bottom-right')
+
       // setTimeout(()=> map.zoomIn() , 500)
     })
   }
