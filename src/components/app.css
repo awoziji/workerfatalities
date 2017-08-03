@@ -34,10 +34,10 @@ body {
   color: rgb( 220,220,220);
   /*width: 60vw;*/
   /*pointer-events: none;*/
-  touch-action: none;
-  cursor: -webkit-grab;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  
+  /*touch-action: none;*/
+  /*cursor: -webkit-grab;*/
+  /*-webkit-tap-highlight-color: rgba(0,0,0,0);*/
+
 }
 
 #info div.title {
