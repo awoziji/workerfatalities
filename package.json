@@ -4,25 +4,23 @@
   "description": "a map of worker fatalities in the us",
   "main": "webpack.config.js",
   "scripts": {
-    "jupyter": "docker run -it  -v $PWD/data:/home/jovyan/work --rm -p 8888:8888 jupyter/datascience-notebook",
+    "jupyter":
+      "docker run -it  -v $PWD/data:/home/jovyan/work --rm -p 8888:8888 jupyter/datascience-notebook",
     "start": "webpack-dev-server",
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production webpack -p --config webpack.config.production.js && echo \"workerfatalities.com\" > dist/CNAME",
+    "build":
+      "cross-env NODE_ENV=production webpack -p --config webpack.config.production.js && echo \"workerfatalities.com\" > dist/CNAME",
     "deploy-gh-pages": "git subtree push --prefix dist origin gh-pages",
-    "deploy-gh-pages-force": "git push origin `git subtree split --prefix dist master`:gh-pages --force",
+    "deploy": "npm run build && npm run deploy-gh-pages",
+    "deploy-gh-pages-force":
+      "git push origin `git subtree split --prefix dist master`:gh-pages --force",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zischwartz/workerfatalities.git"
   },
-  "keywords": [
-    "map",
-    "death",
-    "fatalities",
-    "catastrophes",
-    "osha"
-  ],
+  "keywords": ["map", "death", "fatalities", "catastrophes", "osha"],
   "author": "Zach Schwartz",
   "license": "ISC",
   "bugs": {
@@ -50,7 +48,7 @@
   "dependencies": {
     "d3": "^4.9.1",
     "html-webpack-plugin": "^2.29.0",
-    "mapbox-gl": "^0.38.0",
+    "mapbox-gl": "^0.49.0",
     "mapbox-gl-geocoder": "^2.0.1",
     "module-to-cdn": "github:zischwartz/module-to-cdn",
     "modules-cdn-webpack-plugin": "^3.2.0",
